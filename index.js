@@ -1,10 +1,7 @@
 'use strict';
 
-var categorise = require('./lib/categorise.js');
-
 module.exports = {
-  categorise: categorise,
-  categorize: categorise,
+  categorize: require('./lib/categorize.js'),
   extractFields: require('./lib/extract-fields.js'),
   filter: require('./lib/filter.js'),
   link: require('./lib/link.js'),
