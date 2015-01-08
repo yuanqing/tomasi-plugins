@@ -21,9 +21,9 @@ test('render', function(t) {
   var cb = function(err, result) {
     t.false(err);
     t.looseEquals(result, [
-      { title: 'foo', $content: 'foo\nfoo\nbar\n' },
-      { title: 'bar', $content: 'bar\nfoo\nbar\n' },
-      { title: 'baz', $content: 'baz\nfoo\nbar\n' }
+      { title: 'foo', $content: 'foo\nfoo\n' },
+      { title: 'bar', $content: 'bar\nfoo\n' },
+      { title: 'baz', $content: 'baz\nfoo\n' }
     ]);
     t.end();
   };
