@@ -1,6 +1,6 @@
 {
   "name": "tomasi-plugins",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Core plugins for the Tomasi build system.",
   "author": "Lim Yuan Qing",
   "license": "MIT",
