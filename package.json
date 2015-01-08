@@ -9,12 +9,13 @@
     "url": "git://github.com/yuanqing/tomasi-plugins.git"
   },
   "dependencies": {
-    "cheque": "^0.2.1",
     "consolidate": "^0.10.0",
+    "defaults": "^1.0.0",
     "ejs": "^1.0.0",
     "extend": "^2.0.0",
     "fastmatter": "^1.0.0",
     "fs-extra": "^0.13.0",
+    "marked": "^0.3.2",
     "mitch": "^0.4.0",
     "pppath": "^0.1.4",
     "rampage": "^0.1.0",
