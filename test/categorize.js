@@ -1,7 +1,7 @@
 'use strict';
 
-var plugin = require('..').categorize;
 var test = require('tape');
+var plugin = require('..').categorize;
 
 var files = [
   { categories: ['foo', 'bar'] },
@@ -9,17 +9,8 @@ var files = [
   { categories: 'bar' }
 ];
 
-test('invalid string `prop`', function(t) {
-  var categorize = plugin('invalid');
-  var cb = function(err) {
-    t.true(err);
-    t.end();
-  };
-  categorize(cb, files);
-});
-
-test('string `prop`; defaults to "categories"', function(t) {
-  var categorize = plugin();
+test('categorize using string `key`', function(t) {
+  var categorize = plugin('categories');
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
@@ -39,7 +30,7 @@ test('string `prop`; defaults to "categories"', function(t) {
   categorize(cb, files);
 });
 
-test('function `prop`', function(t) {
+test('categorize using function `key`', function(t) {
   var categorize = plugin(function(file) {
     return file.categories;
   });
@@ -62,9 +53,9 @@ test('function `prop`', function(t) {
   categorize(cb, files);
 });
 
-test('`prop` and `fn`', function(t) {
-  var categorize = plugin('categories', function(tag) {
-    return tag[0];
+test('with `fn` to modify the value used for the categorisation', function(t) {
+  var categorize = plugin('categories', function(category) {
+    return category[0];
   });
   var cb = function(err, result) {
     t.false(err);

@@ -1,12 +1,12 @@
 'use strict';
 
-var plugin = require('..').paginate;
 var test = require('tape');
+var plugin = require('..').paginate;
 
 var files = [
-  { slug: 'foo' },
-  { slug: 'bar' },
-  { slug: 'baz' }
+  { title: 'foo' },
+  { title: 'bar' },
+  { title: 'baz' }
 ];
 
 test('default paginate', function(t) {
@@ -15,8 +15,8 @@ test('default paginate', function(t) {
     t.false(err);
     // page 1
     t.looseEqual(result[0].$content, [
-      { slug: 'foo' },
-      { slug: 'bar' }
+      files[0],
+      files[1]
     ]);
     t.equal(result[0].page, 1);
     t.equal(result[0].totalPages, 2);
@@ -24,7 +24,7 @@ test('default paginate', function(t) {
     t.equal(result[0].next, result[1]);
     // page 2
     t.looseEqual(result[1].$content, [
-      { slug: 'baz' }
+      files[2]
     ]);
     t.equal(result[1].page, 2);
     t.equal(result[1].totalPages, 2);

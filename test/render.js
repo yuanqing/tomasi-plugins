@@ -1,9 +1,9 @@
 'use strict';
 
-var plugin = require('..').render;
 var test = require('tape');
+var plugin = require('..').render;
 
-var inDir = __dirname + '/fixtures/';
+var fixturesDir = __dirname + '/fixtures/';
 
 var files = [
   { title: 'foo' },
@@ -17,13 +17,13 @@ var dataTypes = {
 };
 
 test('render', function(t) {
-  var render = plugin(inDir + 'post.ejs');
+  var render = plugin(fixturesDir + 'post.ejs');
   var cb = function(err, result) {
     t.false(err);
     t.looseEquals(result, [
-      { title: 'foo', $content: '<h1>foo</h1>\n<p>foo, bar</p>\n' },
-      { title: 'bar', $content: '<h1>bar</h1>\n<p>foo, bar</p>\n' },
-      { title: 'baz', $content: '<h1>baz</h1>\n<p>foo, bar</p>\n' }
+      { title: 'foo', $content: 'foo\nfoo\nbar\n' },
+      { title: 'bar', $content: 'bar\nfoo\nbar\n' },
+      { title: 'baz', $content: 'baz\nfoo\nbar\n' }
     ]);
     t.end();
   };

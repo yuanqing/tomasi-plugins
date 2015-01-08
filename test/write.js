@@ -1,7 +1,6 @@
 'use strict';
 
 var test = require('tape');
-
 var plugin = require('..').write;
 var fs = require('fs-extra');
 
