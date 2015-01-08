@@ -14,11 +14,11 @@ test('categorize using string `key`', function(t) {
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      { $category: 'foo',
+      { category: 'foo',
         $content: [ files[0] ] },
-      { $category: 'bar',
+      { category: 'bar',
         $content: [ files[0], files[2] ] },
-      { $category: 'baz',
+      { category: 'baz',
         $content: [ files[1] ] }
     ]);
     t.equal(result[0].$content[0], files[0]);
@@ -37,11 +37,11 @@ test('categorize using function `key`', function(t) {
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      { $category: 'foo',
+      { category: 'foo',
         $content: [ files[0] ] },
-      { $category: 'bar',
+      { category: 'bar',
         $content: [ files[0], files[2] ] },
-      { $category: 'baz',
+      { category: 'baz',
         $content: [ files[1] ] }
     ]);
     t.equal(result[0].$content[0], files[0]);
@@ -60,9 +60,9 @@ test('with `fn` to modify the value used for the categorisation', function(t) {
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      { $category: 'f',
+      { category: 'f',
         $content: [ files[0] ] },
-      { $category: 'b',
+      { category: 'b',
         $content: [ files[0], files[1], files[2] ] }
     ]);
     t.equal(result[0].$content[0], files[0]);
