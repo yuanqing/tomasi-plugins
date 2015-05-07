@@ -16,10 +16,10 @@ var paginate = function(numPerPage, preProcess, postProcess) {
       };
     },
     postProcess: postProcess || function(currPage, prevPage, nextPage, pageNum, totalPages) {
-      currPage.page = pageNum + 1;
-      currPage.totalPages = totalPages;
-      currPage.previous = prevPage;
-      currPage.next = nextPage;
+      currPage.$page = pageNum + 1;
+      currPage.$totalPages = totalPages;
+      currPage.$previous = prevPage;
+      currPage.$next = nextPage;
       return currPage;
     }
   };
