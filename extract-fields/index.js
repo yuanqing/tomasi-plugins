@@ -5,6 +5,11 @@ var extend = require('extend');
 var mitch = require('mitch');
 
 var extractFields = function(opts) {
+  if (typeof opts === 'string') {
+    opts = {
+      $inPath: opts
+    };
+  }
   _.each(opts, function(pattern, key) {
     opts[key] = mitch(pattern);
   });
