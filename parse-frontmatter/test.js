@@ -3,40 +3,61 @@
 var test = require('tape');
 var plugin = require('..').parseFrontmatter;
 
-test('defaults to parsing `$content`', function(t) {
+test('parse the `$content` field if no `keys` specified', function(t) {
   var parseFrontmatter = plugin();
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      { title: 'foo', $content: 'x' },
-      { title: 'bar', $content: 'y' },
-      { title: 'baz', $content: 'z' },
+      {
+        a: 'foo',
+        $content: 'bar'
+      }
     ]);
     t.end();
   };
   var files = [
-    { $content: '---\ntitle: foo\n---\nx' },
-    { $content: '---\ntitle: bar\n---\ny' },
-    { $content: '---\ntitle: baz\n---\nz' },
+    { $content: '---\na: foo\n---\nbar' }
   ];
   parseFrontmatter(cb, files);
 });
 
-test('parse a custom field', function(t) {
-  var parseFrontmatter = plugin('body');
+test('parse a single field', function(t) {
+  var parseFrontmatter = plugin('x');
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      { title: 'foo', body: 'x' },
-      { title: 'bar', body: 'y' },
-      { title: 'baz', body: 'z' },
+      {
+        a: 'foo',
+        x: 'bar'
+      }
     ]);
     t.end();
   };
   var files = [
-    { body: '---\ntitle: foo\n---\nx' },
-    { body: '---\ntitle: bar\n---\ny' },
-    { body: '---\ntitle: baz\n---\nz' },
+    { x: '---\na: foo\n---\nbar' }
+  ];
+  parseFrontmatter(cb, files);
+});
+
+test('parse multiple fields', function(t) {
+  var parseFrontmatter = plugin(['x', 'y']);
+  var cb = function(err, result) {
+    t.false(err);
+    t.looseEqual(result, [
+      {
+        a: 'foo',
+        b: 'bar',
+        x: 'baz',
+        y: 'qux'
+      },
+    ]);
+    t.end();
+  };
+  var files = [
+    {
+      x: '---\na: foo\n---\nbaz',
+      y: '---\nb: bar\n---\nqux'
+    }
   ];
   parseFrontmatter(cb, files);
 });
