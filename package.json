@@ -24,6 +24,7 @@
     "savoy": "^0.3.0",
     "strfmt": "^0.1.0",
     "taxonomist": "^2.3.0",
+    "typogr": "^0.6.5",
     "versus": "^0.2.0"
   },
   "devDependencies": {

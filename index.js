@@ -8,6 +8,7 @@ module.exports = {
   paginate: require('./paginate'),
   parseFrontmatter: require('./parse-frontmatter'),
   parseMarkdown: require('./parse-markdown'),
+  parseSmartypants: require('./parse-smartypants'),
   render: require('./render'),
   set: require('./set'),
   write: require('./write')
