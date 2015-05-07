@@ -10,17 +10,18 @@ var extractFields = function(opts) {
       $inPath: opts
     };
   }
-  _.each(opts, function(pattern, key) {
-    opts[key] = mitch(pattern);
+  opts = _.map(opts, function(pattern) {
+    return mitch(pattern);
   });
   return function(cb, files) {
-    cb(null, _.map(files, function(file) {
+    _.each(files, function(file) {
       var fields = {};
       _.each(opts, function(matcher, key) {
         extend(fields, matcher(file[key]));
       });
-      return extend(file, fields);
-    }));
+      extend(file, fields);
+    });
+    cb(null, files);
   };
 };
 
