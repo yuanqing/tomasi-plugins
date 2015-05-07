@@ -8,16 +8,12 @@ test('parses the `$content` field if no `keys` specified', function(t) {
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      {
-        $content: '&#8220;foo&#8221;'
-      }
+      { $content: '&#8220;foo&#8221;' }
     ]);
     t.end();
   };
   var files = [
-    {
-      $content: '"foo"'
-    }
+    { $content: '"foo"' }
   ];
   parseSmartypants(cb, files);
 });
@@ -27,16 +23,12 @@ test('parse a single field', function(t) {
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      {
-        foo: '&#8220;foo&#8221;'
-      }
+      { foo: '&#8220;foo&#8221;' }
     ]);
     t.end();
   };
   var files = [
-    {
-      foo: '"foo"'
-    }
+    { foo: '"foo"' }
   ];
   parseSmartypants(cb, files);
 });
