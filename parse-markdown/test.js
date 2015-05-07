@@ -3,7 +3,7 @@
 var test = require('tape');
 var plugin = require('..').parseMarkdown;
 
-test('parses the `$content` field if no `keys` specified', function(t) {
+test('parse the `$content` field if no `keys` specified', function(t) {
   var parseMarkdown = plugin();
   var cb = function(err, result) {
     t.false(err);
@@ -19,36 +19,36 @@ test('parses the `$content` field if no `keys` specified', function(t) {
 });
 
 test('parse a single field', function(t) {
-  var parseMarkdown = plugin('foo');
+  var parseMarkdown = plugin('x');
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      { foo: '<h1>foo</h1>\n' },
+      { x: '<h1>foo</h1>\n' },
     ]);
     t.end();
   };
   var files = [
-    { foo: '# foo' }
+    { x: '# foo' }
   ];
   parseMarkdown(cb, files);
 });
 
 test('parse multiple fields', function(t) {
-  var parseMarkdown = plugin(['foo', 'bar']);
+  var parseMarkdown = plugin(['x', 'y']);
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
       {
-        foo: '<h1>foo</h1>\n',
-        bar: '<h1>bar</h1>\n'
+        x: '<h1>foo</h1>\n',
+        y: '<h1>bar</h1>\n'
       },
     ]);
     t.end();
   };
   var files = [
     {
-      foo: '# foo',
-      bar: '# bar'
+      x: '# foo',
+      y: '# bar'
     }
   ];
   parseMarkdown(cb, files);

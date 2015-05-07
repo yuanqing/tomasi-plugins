@@ -3,52 +3,52 @@
 var test = require('tape');
 var plugin = require('..').parseSmartypants;
 
-test('parses the `$content` field if no `keys` specified', function(t) {
+test('parse the `$content` field if no `keys` specified', function(t) {
   var parseSmartypants = plugin();
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      { $content: '&#8220;foo&#8221;' }
+      { $content: 'foo&#8217;s' }
     ]);
     t.end();
   };
   var files = [
-    { $content: '"foo"' }
+    { $content: 'foo\'s' }
   ];
   parseSmartypants(cb, files);
 });
 
 test('parse a single field', function(t) {
-  var parseSmartypants = plugin('foo');
+  var parseSmartypants = plugin('x');
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      { foo: '&#8220;foo&#8221;' }
+      { x: 'foo&#8217;s' }
     ]);
     t.end();
   };
   var files = [
-    { foo: '"foo"' }
+    { x: 'foo\'s' }
   ];
   parseSmartypants(cb, files);
 });
 
 test('parse multiple fields', function(t) {
-  var parseSmartypants = plugin(['foo', 'bar']);
+  var parseSmartypants = plugin(['x', 'y']);
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
       {
-        foo: '&#8220;foo&#8221;',
-        bar: '&#8220;bar&#8221;'
+        x: 'foo&#8217;s',
+        y: 'bar&#8217;s'
       }
     ]);
     t.end();
   };
   var files = [
     {
-      foo: '"foo"',
-      bar: '"bar"'
+      x: 'foo\'s',
+      y: 'bar\'s'
     }
   ];
   parseSmartypants(cb, files);
