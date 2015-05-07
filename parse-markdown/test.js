@@ -3,40 +3,53 @@
 var test = require('tape');
 var plugin = require('..').parseMarkdown;
 
-test('defaults to parsing `$content`', function(t) {
+test('parses the `$content` field if no `keys` specified', function(t) {
   var parseMarkdown = plugin();
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      { $content: '<h1>Foo</h1>\n' },
-      { $content: '<h1>Bar</h1>\n' },
-      { $content: '<h1>Baz</h1>\n' }
+      { $content: '<h1>foo</h1>\n' }
     ]);
     t.end();
   };
   var files = [
-    { $content: '# Foo' },
-    { $content: '# Bar' },
-    { $content: '# Baz' }
+    { $content: '# foo' }
   ];
   parseMarkdown(cb, files);
 });
 
-test('parse a custom field', function(t) {
-  var parseMarkdown = plugin('body');
+test('parse a single field', function(t) {
+  var parseMarkdown = plugin('foo');
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
-      { body: '<h1>Foo</h1>\n' },
-      { body: '<h1>Bar</h1>\n' },
-      { body: '<h1>Baz</h1>\n' }
+      { foo: '<h1>foo</h1>\n' },
     ]);
     t.end();
   };
   var files = [
-    { body: '# Foo' },
-    { body: '# Bar' },
-    { body: '# Baz' }
+    { foo: '# foo' }
+  ];
+  parseMarkdown(cb, files);
+});
+
+test('parse multiple fields', function(t) {
+  var parseMarkdown = plugin(['foo', 'bar']);
+  var cb = function(err, result) {
+    t.false(err);
+    t.looseEqual(result, [
+      {
+        foo: '<h1>foo</h1>\n',
+        bar: '<h1>bar</h1>\n'
+      },
+    ]);
+    t.end();
+  };
+  var files = [
+    {
+      foo: '# foo',
+      bar: '# bar'
+    }
   ];
   parseMarkdown(cb, files);
 });
