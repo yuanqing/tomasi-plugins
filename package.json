@@ -31,7 +31,7 @@
     "tape": "^4.0.0"
   },
   "scripts": {
-    "lint": "jshint --verbose index.js lib/*.js test/*.js",
+    "lint": "jshint --verbose index.js */*.js",
     "test": "rm -rf coverage && istanbul cover tape */*.js",
     "build": "npm run lint && npm test"
   },
