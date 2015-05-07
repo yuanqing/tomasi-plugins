@@ -9,13 +9,13 @@
     "url": "git://github.com/yuanqing/tomasi-plugins.git"
   },
   "dependencies": {
-    "consolidate": "^0.10.0",
-    "defaults": "^1.0.0",
-    "ejs": "^1.0.0",
-    "extend": "^2.0.0",
+    "consolidate": "^0.12.1",
+    "defaults": "^1.0.2",
+    "ejs": "^2.3.1",
+    "extend": "^2.0.1",
     "fastmatter": "^1.0.0",
-    "fs-extra": "^0.13.0",
-    "marked": "^0.3.2",
+    "fs-extra": "^0.18.2",
+    "marked": "^0.3.3",
     "mitch": "^0.4.0",
     "pppath": "^0.1.4",
     "rampage": "^0.1.0",
@@ -26,9 +26,9 @@
     "versus": "^0.2.0"
   },
   "devDependencies": {
-    "istanbul": "^0.3.5",
-    "jshint": "^2.5.11",
-    "tape": "^3.0.3"
+    "istanbul": "^0.3.13",
+    "jshint": "^2.7.0",
+    "tape": "^4.0.0"
   },
   "scripts": {
     "lint": "jshint --verbose index.js lib/*.js test/*.js",
