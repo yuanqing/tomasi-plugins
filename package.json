@@ -32,7 +32,7 @@
   },
   "scripts": {
     "lint": "jshint --verbose index.js lib/*.js test/*.js",
-    "test": "rm -rf coverage && istanbul cover tape test/*.js",
+    "test": "rm -rf coverage && istanbul cover tape */*.js",
     "build": "npm run lint && npm test"
   },
   "keywords": [
