@@ -9,7 +9,34 @@ var files = [
   { title: 'baz' }
 ];
 
-test('default paginate', function(t) {
+test('no arguments', function(t) {
+  var paginate = plugin();
+  var cb = function(err, result) {
+    t.false(err);
+    // page 1
+    t.equal(result[0].title, 'foo');
+    t.equal(result[0].page, 1);
+    t.equal(result[0].totalPages, 3);
+    t.equal(result[0].previous, undefined);
+    t.equal(result[0].next, result[1]);
+    // page 2
+    t.equal(result[1].title, 'bar');
+    t.equal(result[1].page, 2);
+    t.equal(result[1].totalPages, 3);
+    t.equal(result[1].previous, result[0]);
+    t.equal(result[1].next, result[2]);
+    // page 3
+    t.equal(result[2].title, 'baz');
+    t.equal(result[2].page, 3);
+    t.equal(result[2].totalPages, 3);
+    t.equal(result[2].previous, result[1]);
+    t.equal(result[2].next, undefined);
+    t.end();
+  };
+  paginate(cb, files);
+});
+
+test('with `numPerPage`', function(t) {
   var paginate = plugin(2);
   var cb = function(err, result) {
     t.false(err);

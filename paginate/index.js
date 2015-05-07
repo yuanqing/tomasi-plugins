@@ -3,6 +3,12 @@
 var rampage = require('rampage');
 
 var paginate = function(numPerPage, preProcess, postProcess) {
+  if (numPerPage == null) {
+    numPerPage = 1;
+    preProcess = function(files) {
+      return files[0];
+    };
+  }
   var opts = {
     preProcess: preProcess || function(files) {
       return {
