@@ -8,7 +8,9 @@ var categorize = function(key, fn) {
     var categories = taxonomist(files, key, fn);
     var result = [];
     _.each(categories, function(files, category) {
-      result.push({ category: category, $content: files });
+      var file = { $content: files };
+      file[key] = category;
+      result.push(file);
     });
     cb(null, result);
   };
