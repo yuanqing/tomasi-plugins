@@ -1,7 +1,6 @@
 'use strict';
 
 var _ = require('savoy');
-var cellophane = require('cellophane');
 var consolidate = require('consolidate');
 var extend = require('extend');
 
@@ -10,13 +9,18 @@ var render = function(tmplFile, opts) {
   var tmplEngine = consolidate[opts.tmplEngine || 'ejs'];
   return function(cb, files, dataTypeName, viewName, dataTypes) {
     var $ = {
-      $: function(dataTypeName, viewName) {
-        return cellophane(dataTypes[dataTypeName][viewName]);
-      }
+      $: _.map(dataTypes, function(dataType) {
+        if (Object.keys(dataType).length === 1 && dataType.$) {
+          if (dataType.$.length === 1) {
+            return dataType.$[0];
+          }
+          return dataType.$;
+        }
+        return dataType;
+      })
     };
     _.each(files, function(cb, file) {
-      extend(file, $);
-      tmplEngine(tmplFile, file, function(err, rendered) {
+      tmplEngine(tmplFile, extend({}, file, $), function(err, rendered) {
         file.$content = rendered;
         cb(err);
       });
