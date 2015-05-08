@@ -4,13 +4,13 @@ var test = require('tape');
 var plugin = require('..').filter;
 
 var files = [
-  { x: 'foo' },
-  { x: 'bar' }
+  { x: { y: 'foo' } },
+  { x: { y: 'bar' } }
 ];
 
 test('filter by `fn`', function(t) {
   var filter = plugin(function(cb, file) {
-    cb(null, file.x === 'foo');
+    cb(null, file.x.y === 'foo');
   });
   var cb = function(err, result) {
     t.false(err);
@@ -22,8 +22,8 @@ test('filter by `fn`', function(t) {
   filter(cb, files);
 });
 
-test('filter by `op` and `val`', function(t) {
-  var filter = plugin('x', '===', 'foo');
+test('filter by `key`, `op` and `val`', function(t) {
+  var filter = plugin('x.y', '===', 'foo');
   var cb = function(err, result) {
     t.false(err);
     t.looseEqual(result, [
