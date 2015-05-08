@@ -11,5 +11,6 @@ module.exports = {
   parseSmartypants: require('./parse-smartypants'),
   render: require('./render'),
   set: require('./set'),
+  sort: require('./sort'),
   write: require('./write')
 };
