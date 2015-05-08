@@ -2,10 +2,12 @@
 
 var get = require('jaunt').get;
 var cheque = require('cheque');
+var isFunction = cheque.isFunction;
+var isString = cheque.isString;
 
 var sort = function(x, opts) {
   // sort(fn)
-  if (cheque.isFunction(x)) {
+  if (isFunction(x)) {
     return function(cb, files) {
       cb(null, files.slice().sort(x));
     };
@@ -20,7 +22,7 @@ var sort = function(x, opts) {
         a = b;
         b = temp;
       }
-      if (cheque.isString(a) && cheque.isString(b)) {
+      if (isString(a) && isString(b)) {
         return a.localeCompare(b);
       }
       return a < b ? -1 : 1;

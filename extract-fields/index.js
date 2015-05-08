@@ -2,10 +2,11 @@
 
 var _ = require('savoy');
 var extend = require('extend');
+var isString = require('cheque').isString;
 var mitch = require('mitch');
 
 var extractFields = function(opts) {
-  if (typeof opts === 'string') {
+  if (isString(opts)) {
     opts = {
       $inPath: opts
     };
