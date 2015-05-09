@@ -9,7 +9,7 @@ var render = function(tmplFile, opts) {
   opts = opts || {};
   var tmplEngineName = opts.tmplEngine || 'swig';
   if (tmplEngineName === 'swig') {
-    opts.autoescape = true;
+    opts.autoescape = false;
   }
   var tmplEngine = consolidate[tmplEngineName];
   var minify = opts.minify != null ? opts.minify : true;
