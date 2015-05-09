@@ -6,8 +6,33 @@ var join = require('path').join;
 
 var fixturesDir = join(__dirname, 'fixtures/');
 
-test('defaults to minifying the rendered string', function(t) {
+test('defaults to `swig`, and minifying the rendered string', function(t) {
   var render = plugin(join(fixturesDir, 'post.html'));
+  var files = [
+    { x: 'foo' }
+  ];
+  var dataTypes = {
+    blog: {
+      post: files
+    }
+  };
+  var cb = function(err, result) {
+    t.false(err);
+    t.looseEqual(result, [
+      {
+        x: 'foo',
+        $content: 'foo'
+      }
+    ]);
+    t.end();
+  };
+  render(cb, files, 'blog', 'post', dataTypes);
+});
+
+test('pass in `opts.tmplEngine` to change the render engine', function(t) {
+  var render = plugin(join(fixturesDir, 'post.ejs'), {
+    tmplEngine: 'ejs'
+  });
   var files = [
     { x: 'foo' }
   ];

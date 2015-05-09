@@ -7,8 +7,12 @@ var htmlMinifier = require('html-minifier').minify;
 
 var render = function(tmplFile, opts) {
   opts = opts || {};
+  var tmplEngineName = opts.tmplEngine || 'swig';
+  if (tmplEngineName === 'swig') {
+    opts.autoescape = true;
+  }
+  var tmplEngine = consolidate[tmplEngineName];
   var minify = opts.minify != null ? opts.minify : true;
-  var tmplEngine = consolidate[opts.tmplEngine || 'swig'];
   return function(cb, files, dataTypeName, viewName, dataTypes) {
     var $ = {
       $: _.map(dataTypes, function(dataType) {
