@@ -6,7 +6,7 @@ var join = require('path').join;
 
 var fixturesDir = join(__dirname, 'fixtures/');
 
-test('use `swig` as the default template engine', function(t) {
+test('defaults to minifying the rendered string', function(t) {
   var render = plugin(join(fixturesDir, 'post.html'));
   var files = [
     { x: 'foo' }
@@ -18,12 +18,37 @@ test('use `swig` as the default template engine', function(t) {
   };
   var cb = function(err, result) {
     t.false(err);
-    t.looseEqual([
+    t.looseEqual(result, [
+      {
+        x: 'foo',
+        $content: 'foo'
+      }
+    ]);
+    t.end();
+  };
+  render(cb, files, 'blog', 'post', dataTypes);
+});
+
+test('pass in `opts.minify` to disable minification', function(t) {
+  var render = plugin(join(fixturesDir, 'post.html'), {
+    minify: false
+  });
+  var files = [
+    { x: 'foo' }
+  ];
+  var dataTypes = {
+    blog: {
+      post: files
+    }
+  };
+  var cb = function(err, result) {
+    t.false(err);
+    t.looseEqual(result, [
       {
         x: 'foo',
         $content: 'foo\n'
       }
-    ], result);
+    ]);
     t.end();
   };
   render(cb, files, 'blog', 'post', dataTypes);
@@ -48,12 +73,12 @@ test('with globals', function(t) {
     };
     var cb = function(err, result) {
       t.false(err);
-      t.looseEqual([
+      t.looseEqual(result, [
         {
           x: 'foo',
-          $content: 'bar\n'
+          $content: 'bar'
         }
-      ], result);
+      ]);
       t.end();
     };
     render(cb, files, 'blog', 'post', dataTypes);
@@ -77,12 +102,12 @@ test('with globals', function(t) {
     };
     var cb = function(err, result) {
       t.false(err);
-      t.looseEqual([
+      t.looseEqual(result, [
         {
           x: 'foo',
-          $content: 'bar\nbaz\n'
+          $content: 'bar baz'
         }
-      ], result);
+      ]);
       t.end();
     };
     render(cb, files, 'blog', 'post', dataTypes);
