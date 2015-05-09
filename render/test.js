@@ -2,11 +2,12 @@
 
 var test = require('tape');
 var plugin = require('..').render;
+var join = require('path').join;
 
-var fixturesDir = __dirname + '/fixtures/';
+var fixturesDir = join(__dirname, 'fixtures/');
 
-test('default to `ejs`', function(t) {
-  var render = plugin(fixturesDir + 'post.ejs');
+test('use `swig` as the default template engine', function(t) {
+  var render = plugin(join(fixturesDir, 'post.html'));
   var files = [
     { x: 'foo' }
   ];
@@ -30,7 +31,7 @@ test('default to `ejs`', function(t) {
 
 test('with globals', function(t) {
   t.test('single file', function(t) {
-    var render = plugin(fixturesDir + 'globals-single.ejs');
+    var render = plugin(join(fixturesDir, 'globals-single.html'));
     var files = [
       { x: 'foo' }
     ];
@@ -58,7 +59,7 @@ test('with globals', function(t) {
     render(cb, files, 'blog', 'post', dataTypes);
   });
   t.test('multiple files', function(t) {
-    var render = plugin(fixturesDir + 'globals-multiple.ejs');
+    var render = plugin(join(fixturesDir, 'globals-multiple.html'));
     var files = [
       { x: 'foo' }
     ];

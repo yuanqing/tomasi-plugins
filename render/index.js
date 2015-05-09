@@ -6,7 +6,7 @@ var extend = require('extend');
 
 var render = function(tmplFile, opts) {
   opts = opts || {};
-  var tmplEngine = consolidate[opts.tmplEngine || 'ejs'];
+  var tmplEngine = consolidate[opts.tmplEngine || 'swig'];
   return function(cb, files, dataTypeName, viewName, dataTypes) {
     var $ = {
       $: _.map(dataTypes, function(dataType) {

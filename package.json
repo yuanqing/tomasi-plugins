@@ -12,7 +12,6 @@
     "cheque": "^0.2.1",
     "consolidate": "^0.12.1",
     "defaults": "^1.0.2",
-    "ejs": "^2.3.1",
     "extend": "^2.0.1",
     "fastmatter": "^1.0.0",
     "fs-extra": "^0.18.2",
@@ -23,6 +22,7 @@
     "remarkable": "^1.6.0",
     "savoy": "^0.3.0",
     "strfmt": "^0.1.0",
+    "swig": "^1.4.2",
     "taxonomist": "^2.3.0",
     "typogr": "^0.6.5",
     "versus": "^0.2.0"
