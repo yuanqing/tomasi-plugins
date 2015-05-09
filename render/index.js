@@ -20,7 +20,7 @@ var render = function(tmplFile, opts) {
       })
     };
     _.each(files, function(cb, file) {
-      tmplEngine(tmplFile, extend({}, file, $), function(err, rendered) {
+      tmplEngine(tmplFile, extend({}, opts, file, $), function(err, rendered) {
         file.$content = rendered;
         cb(err);
       });
