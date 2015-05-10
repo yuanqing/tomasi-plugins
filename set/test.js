@@ -12,7 +12,10 @@ var files = [
 
 test('set', function(t) {
   var set = plugin({
-    z: '{x} {y}'
+    a: {
+      b: '{x} {y}',
+      c: 42
+    }
   });
   var cb = function(err, result) {
     t.false(err);
@@ -20,7 +23,10 @@ test('set', function(t) {
       {
         x: 'foo',
         y: 'bar',
-        z: 'foo bar'
+        a: {
+          b: 'foo bar',
+          c: 42
+        }
       }
     ]);
     t.end();

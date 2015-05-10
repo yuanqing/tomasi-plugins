@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "cheque": "^0.2.1",
+    "clone": "^1.0.2",
     "consolidate": "^0.12.1",
     "defaults": "^1.0.2",
     "extend": "^2.0.1",
@@ -25,6 +26,7 @@
     "strfmt": "^0.1.0",
     "swig": "^1.4.2",
     "taxonomist": "^2.3.0",
+    "traverse": "^0.6.6",
     "typogr": "^0.6.5",
     "versus": "^0.2.0"
   },
