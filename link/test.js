@@ -10,6 +10,12 @@ var files = [
   }
 ];
 
+var config = {
+  $dirs: {
+    $outDir: 'out'
+  }
+};
+
 test('without `opts`', function(t) {
   var link = plugin('{x}/{y}');
   var cb = function(err, result) {
@@ -24,14 +30,13 @@ test('without `opts`', function(t) {
     ]);
     t.end();
   };
-  link(cb, files);
+  link(cb, files, null, null, null, config);
 });
 
 test('with `opts`', function(t) {
   var link = plugin('{x}/{y}', {
     linkPrefix: 'http://yuanqing.sg/',
-    outDir: './build',
-    outFile: 'baz'
+    outFile: 'index.txt'
   });
   var cb = function(err, result) {
     t.false(err);
@@ -40,10 +45,10 @@ test('with `opts`', function(t) {
         x: 'foo',
         y: 'bar',
         $link: 'http://yuanqing.sg/foo/bar',
-        $outPath: 'build/foo/bar/baz'
+        $outPath: 'out/foo/bar/index.txt'
       }
     ]);
     t.end();
   };
-  link(cb, files);
+  link(cb, files, null, null, null, config);
 });

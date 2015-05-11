@@ -10,14 +10,13 @@ var link = function(pattern, opts) {
   var interpolate = strfmt(pattern);
   opts = defaults(opts, {
     linkPrefix: '',
-    outDir: './out/',
     outFile: 'index.html'
   });
-  return function(cb, files) {
+  return function(cb, files, dataTypeName, viewName, dataTypes, config) {
     _.each(files, function(file) {
       var link = interpolate(file);
       file.$link = pppath([opts.linkPrefix, link]);
-      file.$outPath = pppath(join(opts.outDir, link), opts.outFile);
+      file.$outPath = pppath([join(config.$dirs.$outDir, link)], opts.outFile);
     });
     cb(null, files);
   };
