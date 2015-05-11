@@ -5,6 +5,8 @@ var consolidate = require('consolidate');
 var extend = require('extend');
 var htmlMinifier = require('html-minifier').minify;
 var strfmt = require('strfmt');
+var isRelative = require('is-relative');
+var join = require('path').join;
 
 var render = function(tmplFile, opts) {
   opts = opts || {};
@@ -14,7 +16,10 @@ var render = function(tmplFile, opts) {
   }
   var tmplEngine = consolidate[tmplEngineName];
   var minify = opts.minify != null ? opts.minify : true;
-  return function(cb, files, dataTypeName, viewName, dataTypes) {
+  return function(cb, files, dataTypeName, viewName, dataTypes, config) {
+    if (isRelative(tmplFile)) {
+      tmplFile = join(config.$dirs.$tmplDir, tmplFile);
+    }
     var $ = {
       $: _.map(dataTypes, function(dataType) {
         if (Object.keys(dataType).length === 1 && dataType.$) {

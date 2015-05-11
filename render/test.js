@@ -4,10 +4,15 @@ var test = require('tape');
 var plugin = require('..').render;
 var join = require('path').join;
 
-var fixturesDir = join(__dirname, 'fixtures/');
+var FIXTURES_DIR = join(__dirname, 'fixtures');
 
 test('defaults to `swig`, and minifying the rendered string', function(t) {
-  var render = plugin(join(fixturesDir, 'post.html'));
+  var render = plugin(join(FIXTURES_DIR, 'post.html'));
+  var config = {
+    $dirs: {
+      $tmplDir: '.'
+    }
+  };
   var files = [
     { x: 'foo' }
   ];
@@ -26,11 +31,44 @@ test('defaults to `swig`, and minifying the rendered string', function(t) {
     ]);
     t.end();
   };
-  render(cb, files, 'blog', 'post', dataTypes);
+  render(cb, files, 'blog', 'post', dataTypes, config);
+});
+
+test('with `$dirs.$tmplDir`', function(t) {
+  var render = plugin('post.html');
+  var config = {
+    $dirs: {
+      $tmplDir: FIXTURES_DIR
+    }
+  };
+  var files = [
+    { x: 'foo' }
+  ];
+  var dataTypes = {
+    blog: {
+      post: files
+    }
+  };
+  var cb = function(err, result) {
+    t.false(err);
+    t.looseEqual(result, [
+      {
+        x: 'foo',
+        $content: 'foo'
+      }
+    ]);
+    t.end();
+  };
+  render(cb, files, 'blog', 'post', dataTypes, config);
 });
 
 test('interpolates `file` into `tmplFile`', function(t) {
-  var render = plugin(join(fixturesDir, '{tmpl}.html'));
+  var render = plugin(join(FIXTURES_DIR, '{tmpl}.html'));
+  var config = {
+    $dirs: {
+      $tmplDir: '.'
+    }
+  };
   var files = [
     {
       tmpl: 'post',
@@ -53,13 +91,18 @@ test('interpolates `file` into `tmplFile`', function(t) {
     ]);
     t.end();
   };
-  render(cb, files, 'blog', 'post', dataTypes);
+  render(cb, files, 'blog', 'post', dataTypes, config);
 });
 
 test('pass in `opts.tmplEngine` to change the render engine', function(t) {
-  var render = plugin(join(fixturesDir, 'post.ejs'), {
+  var render = plugin(join(FIXTURES_DIR, 'post.ejs'), {
     tmplEngine: 'ejs'
   });
+  var config = {
+    $dirs: {
+      $tmplDir: '.'
+    }
+  };
   var files = [
     { x: 'foo' }
   ];
@@ -78,13 +121,18 @@ test('pass in `opts.tmplEngine` to change the render engine', function(t) {
     ]);
     t.end();
   };
-  render(cb, files, 'blog', 'post', dataTypes);
+  render(cb, files, 'blog', 'post', dataTypes, config);
 });
 
 test('pass in `opts.minify` to disable minification', function(t) {
-  var render = plugin(join(fixturesDir, 'post.html'), {
+  var render = plugin(join(FIXTURES_DIR, 'post.html'), {
     minify: false
   });
+  var config = {
+    $dirs: {
+      $tmplDir: '.'
+    }
+  };
   var files = [
     { x: 'foo' }
   ];
@@ -103,12 +151,17 @@ test('pass in `opts.minify` to disable minification', function(t) {
     ]);
     t.end();
   };
-  render(cb, files, 'blog', 'post', dataTypes);
+  render(cb, files, 'blog', 'post', dataTypes, config);
 });
 
 test('with globals', function(t) {
   t.test('single file', function(t) {
-    var render = plugin(join(fixturesDir, 'globals-single.html'));
+    var render = plugin(join(FIXTURES_DIR, 'globals-single.html'));
+    var config = {
+      $dirs: {
+        $tmplDir: '.'
+      }
+    };
     var files = [
       { x: 'foo' }
     ];
@@ -133,10 +186,15 @@ test('with globals', function(t) {
       ]);
       t.end();
     };
-    render(cb, files, 'blog', 'post', dataTypes);
+    render(cb, files, 'blog', 'post', dataTypes, config);
   });
   t.test('multiple files', function(t) {
-    var render = plugin(join(fixturesDir, 'globals-multiple.html'));
+    var render = plugin(join(FIXTURES_DIR, 'globals-multiple.html'));
+    var config = {
+      $dirs: {
+        $tmplDir: '.'
+      }
+    };
     var files = [
       { x: 'foo' }
     ];
@@ -162,6 +220,6 @@ test('with globals', function(t) {
       ]);
       t.end();
     };
-    render(cb, files, 'blog', 'post', dataTypes);
+    render(cb, files, 'blog', 'post', dataTypes, config);
   });
 });
