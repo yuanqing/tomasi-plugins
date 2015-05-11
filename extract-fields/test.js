@@ -4,21 +4,57 @@ var test = require('tape');
 var plugin = require('..').extractFields;
 
 test('extract from `$inPath` if `opts` is a string', function(t) {
-  var extractFields = plugin('{a}.md');
-  var files = [
-    { $inPath: 'foo.md' },
-  ];
-  var cb = function(err, result) {
-    t.false(err);
-    t.looseEqual(result, [
-      {
-        $inPath: 'foo.md',
-        a: 'foo'
+  t.test('`$inPath` is a relative path', function(t) {
+    var extractFields = plugin('{a}.md');
+    var config = {
+      $dirs: {
+        $inDir: 'in'
+      },
+      $dataTypes: {
+        blog: {
+          $inPath: '*.md'
+        }
       }
-    ]);
-    t.end();
-  };
-  extractFields(cb, files);
+    };
+    var files = [
+      { $inPath: 'in/foo.md' },
+    ];
+    var cb = function(err, result) {
+      t.false(err);
+      t.looseEqual(result, [
+        {
+          $inPath: 'in/foo.md',
+          a: 'foo'
+        }
+      ]);
+      t.end();
+    };
+    extractFields(cb, files, 'blog', null, null, config);
+  });
+  t.test('`$inPath` is an absolute path', function(t) {
+    var extractFields = plugin('/{a}.md');
+    var config = {
+      $dataTypes: {
+        blog: {
+          $inPath: '/*.md'
+        }
+      }
+    };
+    var files = [
+      { $inPath: '/foo.md' },
+    ];
+    var cb = function(err, result) {
+      t.false(err);
+      t.looseEqual(result, [
+        {
+          $inPath: '/foo.md',
+          a: 'foo'
+        }
+      ]);
+      t.end();
+    };
+    extractFields(cb, files, 'blog', null, null, config);
+  });
 });
 
 test('extract from multiple fields', function(t) {
