@@ -2,6 +2,7 @@
 
 module.exports = {
   categorize: require('./categorize'),
+  compact: require('./compact'),
   debug: require('./debug'),
   extractFields: require('./extract-fields'),
   filter: require('./filter'),
