@@ -29,6 +29,33 @@ test('defaults to `swig`, and minifying the rendered string', function(t) {
   render(cb, files, 'blog', 'post', dataTypes);
 });
 
+test('interpolates `file` into `tmplFile`', function(t) {
+  var render = plugin(join(fixturesDir, '{tmpl}.html'));
+  var files = [
+    {
+      tmpl: 'post',
+      x: 'foo'
+    }
+  ];
+  var dataTypes = {
+    blog: {
+      post: files
+    }
+  };
+  var cb = function(err, result) {
+    t.false(err);
+    t.looseEqual(result, [
+      {
+        tmpl: 'post',
+        x: 'foo',
+        $content: 'foo'
+      }
+    ]);
+    t.end();
+  };
+  render(cb, files, 'blog', 'post', dataTypes);
+});
+
 test('pass in `opts.tmplEngine` to change the render engine', function(t) {
   var render = plugin(join(fixturesDir, 'post.ejs'), {
     tmplEngine: 'ejs'

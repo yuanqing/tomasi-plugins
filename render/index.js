@@ -4,6 +4,7 @@ var _ = require('savoy');
 var consolidate = require('consolidate');
 var extend = require('extend');
 var htmlMinifier = require('html-minifier').minify;
+var strfmt = require('strfmt');
 
 var render = function(tmplFile, opts) {
   opts = opts || {};
@@ -25,8 +26,10 @@ var render = function(tmplFile, opts) {
         return dataType;
       })
     };
+    var interpolate = strfmt(tmplFile);
     _.each(files, function(cb, file) {
-      tmplEngine(tmplFile, extend({}, opts, file, $), function(err, rendered) {
+      tmplEngine(interpolate(file), extend({}, opts, file, $),
+          function(err, rendered) {
         if (minify) {
           rendered = htmlMinifier(rendered, {
             collapseWhitespace: true
