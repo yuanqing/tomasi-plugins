@@ -6,6 +6,7 @@ module.exports = {
   debug: require('./debug'),
   extractFields: require('./extract-fields'),
   filter: require('./filter'),
+  limit: require('./limit'),
   link: require('./link'),
   paginate: require('./paginate'),
   parseFrontmatter: require('./parse-frontmatter'),
