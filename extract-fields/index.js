@@ -22,8 +22,10 @@ var extractFields = function(opts) {
     }
     return mitch(pattern);
   });
+  var compiled = false;
   return function(cb, files, dataTypeName, viewName, dataTypes, config) {
-    if (hasInPath) {
+    if (!compiled && hasInPath) {
+      compiled = true;
       if (isRelative(config.$dataTypes[dataTypeName].$inPath)) {
         opts.$inPath = mitch(join(config.$dirs.$inDir, opts.$inPath));
       } else {
