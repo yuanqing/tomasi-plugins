@@ -7,6 +7,10 @@ var files = [
   {
     x: 'foo',
     y: 'bar'
+  },
+  {
+    x: 'baz',
+    y: 'qux'
   }
 ];
 
@@ -26,6 +30,12 @@ test('without `opts`', function(t) {
         y: 'bar',
         $link: 'foo/bar',
         $outPath: 'out/foo/bar/index.html'
+      },
+      {
+        x: 'baz',
+        y: 'qux',
+        $link: 'baz/qux',
+        $outPath: 'out/baz/qux/index.html'
       }
     ]);
     t.end();
@@ -35,8 +45,9 @@ test('without `opts`', function(t) {
 
 test('with `opts`', function(t) {
   var link = plugin('{x}/{y}', {
+    firstPattern: '{x}/{y}/first',
     linkPrefix: 'http://yuanqing.sg/',
-    outFile: 'index.txt'
+    outFile: 'post.html'
   });
   var cb = function(err, result) {
     t.false(err);
@@ -44,8 +55,14 @@ test('with `opts`', function(t) {
       {
         x: 'foo',
         y: 'bar',
-        $link: 'http://yuanqing.sg/foo/bar',
-        $outPath: 'out/foo/bar/index.txt'
+        $link: 'http://yuanqing.sg/foo/bar/first',
+        $outPath: 'out/foo/bar/first/post.html'
+      },
+      {
+        x: 'baz',
+        y: 'qux',
+        $link: 'http://yuanqing.sg/baz/qux',
+        $outPath: 'out/baz/qux/post.html'
       }
     ]);
     t.end();
